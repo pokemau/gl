@@ -7,6 +7,7 @@ struct Texture texture_load(const char *texture_path, enum TextureType type,
                             GLenum target) {
     struct Texture self;
     glGenTextures(1, &self.handle);
+    glBindTexture(GL_TEXTURE_2D, self.handle);
     glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
