@@ -5,6 +5,12 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    // make sure the viewport matches the new window dimensions; note that width and 
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+}
+
 GLFWwindow *window_create() {
 
     GLFWwindow *win;
@@ -28,11 +34,14 @@ GLFWwindow *window_create() {
     }
 
     glfwMakeContextCurrent(win);
+    glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         printf("Failed to initialize GLAD\n");
         exit(1);
     }
+
+//    glEnable(GL_DEPTH_TEST);
 
     return win;
 }

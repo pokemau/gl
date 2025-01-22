@@ -30,7 +30,7 @@ void vec_add(void* list, const void* _value) {
 
     if (info->count >= info->capacity)
     {
-        info->capacity = info->capacity * 2;
+        info->capacity = info->capacity * 1.5;
 
         info = realloc( info,
             sizeof(vec_info) + (info->capacity * info->element_size)

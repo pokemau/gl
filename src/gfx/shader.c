@@ -1,13 +1,13 @@
 #include "shader.h"
+#include "gfx.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-static void _log_and_fail(
-    GLint handle, const char *adverb, const char *path,
-    void (*getlog)(GLuint, GLsizei, GLsizei *, GLchar*),
-    void (*getiv)(GLuint, GLenum, GLint *)) {
+static void _log_and_fail(GLint handle, const char *adverb, const char *path,
+                          void (*getlog)(GLuint, GLsizei, GLsizei *, GLchar *),
+                          void (*getiv)(GLuint, GLenum, GLint *)) {
     GLint loglen;
     getiv(handle, GL_INFO_LOG_LENGTH, &loglen);
 
@@ -38,7 +38,8 @@ static GLint _compile(const char *path, GLenum type) {
     fclose(f);
 
     GLuint handle = glCreateShader(type);
-    glShaderSource(handle,1, (const GLchar *const *) &text, (const GLint *) &len);
+    glShaderSource(handle, 1, (const GLchar *const *)&text,
+                   (const GLint *)&len);
     glCompileShader(handle);
 
     GLint compiled;
@@ -46,13 +47,13 @@ static GLint _compile(const char *path, GLenum type) {
 
     // Check OpenGL logs if compilation failed
     if (compiled == 0) {
-        _log_and_fail(handle, "compiling", path, glGetShaderInfoLog, glGetShaderiv);
+        _log_and_fail(handle, "compiling", path, glGetShaderInfoLog,
+                      glGetShaderiv);
     }
 
     free(text);
     return handle;
 }
-
 
 struct Shader shader_create(const char *vs_path, const char *fs_path) {
     struct Shader self;
@@ -71,7 +72,8 @@ struct Shader shader_create(const char *vs_path, const char *fs_path) {
     if (linked == 0) {
         char buf[512];
         snprintf(buf, 512, "[%s, %s]", vs_path, fs_path);
-        _log_and_fail(self.handle, "linking", buf, glGetProgramInfoLog, glGetProgramiv);
+        _log_and_fail(self.handle, "linking", buf, glGetProgramInfoLog,
+                      glGetProgramiv);
     }
 
     glDetachShader(self.handle, self.vs_handle);
@@ -81,3 +83,18 @@ struct Shader shader_create(const char *vs_path, const char *fs_path) {
     return self;
 }
 
+void shader_destroy(struct Shader self) {
+    glDeleteProgram(self.handle);
+    glDeleteShader(self.fs_handle);
+    glDeleteShader(self.vs_handle);
+}
+
+void shader_bind(struct Shader self) { glUseProgram(self.handle); }
+
+void shader_uniform_int(struct Shader self, const char *name, int v) {
+    glUniform1i(glGetUniformLocation(self.handle, name), v);
+}
+void shader_uniform_mat4(struct Shader self, const char *name, mat4 *m) {
+    glUniformMatrix4fv(glGetUniformLocation(self.handle, name), 1, GL_FALSE,
+                       (const GLfloat *)&m);
+}
