@@ -94,7 +94,8 @@ void shader_bind(struct Shader self) { glUseProgram(self.handle); }
 void shader_uniform_int(struct Shader self, const char *name, int v) {
     glUniform1i(glGetUniformLocation(self.handle, name), v);
 }
+
 void shader_uniform_mat4(struct Shader self, const char *name, mat4 *m) {
     glUniformMatrix4fv(glGetUniformLocation(self.handle, name), 1, GL_FALSE,
-                       (const GLfloat *)&m);
+                       *(m[0]));
 }

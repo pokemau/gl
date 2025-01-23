@@ -1,5 +1,3 @@
-#include "cglm/mat4.h"
-#include "gfx/gfx.h"
 #include "gfx/window.h"
 #include "gfx/shader.h"
 
@@ -7,6 +5,8 @@
 #include "gfx/texture.h"
 #include <GL/glext.h>
 #include <stdio.h>
+
+#include "cglm/mat4.h"
 
 #include "camera.h"
 
@@ -32,10 +32,10 @@ int main() {
 
     float vertices[] = {
         // positions          // colors           // texture coords
-        0.5f,  0.5f,  0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-        0.5f,  -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f,  0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
+        0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
+        0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+        -0.5f, 0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -52,13 +52,6 @@ int main() {
     vao_attr(vao, ebo, 1, 3, GL_FLOAT, 8 * sizeof(float), 3 * sizeof(float));
     vao_attr(vao, ebo, 2, 2, GL_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
 
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-//    glEnableVertexAttribArray(0);
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-//    glEnableVertexAttribArray(1);
-//    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-//    glEnableVertexAttribArray(2);
-
     //    shader_bind(s);
     //    shader_uniform_int(s, "texture1", 0);
 
@@ -74,27 +67,25 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, t.handle);
 
         shader_bind(s);
+
+        mat4 view = GLM_MAT4_IDENTITY_INIT;
+        mat4 model = GLM_MAT4_IDENTITY_INIT;
+        mat4 projection = GLM_MAT4_IDENTITY_INIT;
+
+        glm_translate(view, (vec3){0.0f, 0.0f, -3.0f});
+
+        glm_perspective(glm_rad(45.0f), (float)WINDOW_WIDTH / WINDOW_HEIGHT,
+                        0.1f, 100.0f, projection);
+
+        glm_rotate(model, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
+        glm_scale(model, (vec3){1.0f, 1.0f, 1.0f});
+
+        shader_uniform_mat4(s, "model", &model);
+        shader_uniform_mat4(s, "view", &view);
+        shader_uniform_mat4(s, "projection", &projection);
+
         vao_bind(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        //        mat4 view = GLM_MAT4_IDENTITY_INIT;
-        //        mat4 model = GLM_MAT4_IDENTITY_INIT;
-        //        mat4 projection = GLM_MAT4_IDENTITY_INIT;
-        //
-        //
-        //        glm_rotate(model, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
-        //        glm_translate(view, (vec3){0.0f,0.0f, -3.0f});
-        //
-        //        glm_perspective(glm_rad(45.0f), (float)WINDOW_WIDTH /
-        //        WINDOW_HEIGHT,
-        //                        0.1f, 100.0f, projection);
-        //
-        //        glm_translate(model, (vec3){0.0f, 0.0f, -30.0f});
-        //        glm_scale(model, (vec3){1.0f, 1.0f, 1.0f});
-        //
-        //        shader_uniform_mat4(s, "model", &model);
-        //        shader_uniform_mat4(s, "view", &view);
-        //        shader_uniform_mat4(s, "projection", &projection);
 
 //        glDrawArrays(GL_TRIANGLES, 0, 3);
 
