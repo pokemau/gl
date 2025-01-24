@@ -7,9 +7,7 @@
 #include <stdio.h>
 
 #include "block/block.h"
-
 #include "cglm/mat4.h"
-
 #include "camera.h"
 
 
@@ -24,9 +22,35 @@ bool firstMouse = true;
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 
+void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
+    float xpos = xposIn;
+    float ypos = yposIn;
+
+    if (firstMouse) {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+
+    camera_mouse_movement(&cam, xoffset, yoffset);
+}
+void processInput(GLFWwindow *window, Camera *camera) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    camera_move(window, camera, dt);
+}
+
 int main() {
     win = window_create();
+    glfwSetCursorPosCallback(win, mouse_callback);
 
+    camera_init(&cam);
 
     struct Shader block_s = shader_create("../res/shaders/block_vert.glsl",
                                    "../res/shaders/block_frag.glsl");
@@ -44,16 +68,20 @@ int main() {
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         shader_bind(block_s);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, block_t.handle);
 
 
+        processInput(win, &cam);
+
         mat4 view = GLM_MAT4_IDENTITY_INIT;
         mat4 projection = GLM_MAT4_IDENTITY_INIT;
 
-        glm_translate(view, (vec3){0.0f, 0.0f, -10.0f});
+        camera_get_view_matrix(&cam, &view);
+
         glm_perspective(glm_rad(45.0f), (float)WINDOW_WIDTH / WINDOW_HEIGHT,
                         0.1f, 100.0f, projection);
 

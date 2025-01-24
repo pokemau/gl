@@ -17,9 +17,9 @@ typedef struct {
 } Camera ;
 
 void camera_mouse_movement(Camera *cam, float xOffset, float yOffset);
-void update_camera_vectors(Camera *cam);
-void init_camera(Camera *cam);
-void get_view_matrix(Camera *cam, mat4 *target);
+void camera_update_vectors(Camera *cam);
+void camera_init(Camera *cam);
+void camera_get_view_matrix(Camera *cam, mat4 *target);
 
 void camera_move(GLFWwindow *window, Camera *camera, float dt);
 

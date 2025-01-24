@@ -1,7 +1,7 @@
 #include "camera.h"
 
 
-void init_camera(Camera *cam) {
+void camera_init(Camera *cam) {
     glm_vec3_copy((vec3){0.0f, 0.0f, 3.0f}, cam->position);
     glm_vec3_copy((vec3){0.0f, 0.0f, -1.0f}, cam->front);
     glm_vec3_copy((vec3){0.0f, 1.0f, 0.0f}, cam->up);
@@ -63,9 +63,9 @@ void camera_mouse_movement(Camera *cam, float xOffset, float yOffset) {
     if (cam->pitch < -89.0f)
         cam->pitch = -89.0f;
 
-    update_camera_vectors(cam);
+    camera_update_vectors(cam);
 }
-void update_camera_vectors(Camera *cam) {
+void camera_update_vectors(Camera *cam) {
     vec3 dir;
     dir[0] = cos(glm_rad(cam->yaw)) * cos(glm_rad(cam->pitch));
     dir[1] = sin(glm_rad(cam->pitch));
@@ -76,7 +76,7 @@ void update_camera_vectors(Camera *cam) {
 }
 
 
-void get_view_matrix(Camera *cam, mat4 *dest) {
+void camera_get_view_matrix(Camera *cam, mat4 *dest) {
 
     vec3 target;
     glm_vec3_add(cam->position, cam->front, target);
