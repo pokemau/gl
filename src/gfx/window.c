@@ -39,7 +39,7 @@ GLFWwindow *window_create() {
         exit(1);
     }
 
-//    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
     return win;
 }

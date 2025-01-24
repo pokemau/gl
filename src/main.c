@@ -6,9 +6,12 @@
 #include <GL/glext.h>
 #include <stdio.h>
 
+#include "block/block.h"
+
 #include "cglm/mat4.h"
 
 #include "camera.h"
+
 
 // GLOBAL WINDOW
 GLFWwindow *win;
@@ -24,70 +27,50 @@ float lastY = 600.0 / 2.0;
 int main() {
     win = window_create();
 
-    struct Shader s;
-    struct Texture t;
 
-    s = shader_create("../res/vertex.glsl", "../res/fragment.glsl");
-    t = texture_load("../res/textures/hisocarl.jpg", JPG, GL_TEXTURE_2D);
+    struct Shader block_s = shader_create("../res/shaders/block_vert.glsl",
+                                   "../res/shaders/block_frag.glsl");
+    struct Texture block_t = texture_load("../res/textures/wall.jpg", JPG,
+                                          GL_TEXTURE_2D);
+    struct VAO block_vao = block_create();
 
-    float vertices[] = {
-        // positions          // colors           // texture coords
-        0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
-        0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
+    vec3 positions[] = {
+        {0,7,0},
+        {2,5,-15},
+        {-1.5,2.2,-2.5},
     };
-    unsigned int indices[] = {
-        0, 1, 3, // first triangle
-        1, 2, 3  // second triangle
-    };
-    struct VAO vao = vao_create();
-    struct VBO vbo = vbo_create(GL_ARRAY_BUFFER, false);
-    struct VBO ebo = vbo_create(GL_ELEMENT_ARRAY_BUFFER, false);
-
-    vbo_buffer(vbo, vertices, sizeof(vertices));
-    vbo_buffer(ebo, indices, sizeof(indices));
-
-    vao_attr(vao, ebo, 0, 3, GL_FLOAT, 8 * sizeof(float), 0);
-    vao_attr(vao, ebo, 1, 3, GL_FLOAT, 8 * sizeof(float), 3 * sizeof(float));
-    vao_attr(vao, ebo, 2, 2, GL_FLOAT, 8 * sizeof(float), 6 * sizeof(float));
-
-    //    shader_bind(s);
-    //    shader_uniform_int(s, "texture1", 0);
-
-    //    shader_bind(s);
-    //    shader_uniform_int(s, "texture1", 0);
 
     while (!glfwWindowShouldClose(win)) {
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        shader_bind(block_s);
 
-        //        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, t.handle);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, block_t.handle);
 
-        shader_bind(s);
 
         mat4 view = GLM_MAT4_IDENTITY_INIT;
-        mat4 model = GLM_MAT4_IDENTITY_INIT;
         mat4 projection = GLM_MAT4_IDENTITY_INIT;
 
-        glm_translate(view, (vec3){0.0f, 0.0f, -3.0f});
-
+        glm_translate(view, (vec3){0.0f, 0.0f, -10.0f});
         glm_perspective(glm_rad(45.0f), (float)WINDOW_WIDTH / WINDOW_HEIGHT,
                         0.1f, 100.0f, projection);
 
-        glm_rotate(model, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
-        glm_scale(model, (vec3){1.0f, 1.0f, 1.0f});
+        shader_uniform_mat4(block_s, "v", &view);
+        shader_uniform_mat4(block_s, "p", &projection);
 
-        shader_uniform_mat4(s, "model", &model);
-        shader_uniform_mat4(s, "view", &view);
-        shader_uniform_mat4(s, "projection", &projection);
 
-        vao_bind(vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        vao_bind(block_vao);
 
-//        glDrawArrays(GL_TRIANGLES, 0, 3);
+        for (int i = 0; i < 3; i++) {
+            mat4 model = GLM_MAT4_IDENTITY_INIT;
+            glm_translate(model, positions[i]);
+            glm_rotate(model, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
+            shader_uniform_mat4(block_s, "m", &model);
+
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         glfwSwapBuffers(win);
         glfwPollEvents();
