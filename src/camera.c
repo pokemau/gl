@@ -1,4 +1,5 @@
 #include "camera.h"
+#include <stdio.h>
 
 
 void camera_init(Camera *cam) {
@@ -14,7 +15,7 @@ void camera_init(Camera *cam) {
 }
 
 void camera_move(GLFWwindow *window, Camera *camera, float dt) {
-   float cameraSpeed = camera->speed * dt; 
+    float cameraSpeed = camera->speed * dt;
     vec3 pos_diff = GLM_VEC3_ZERO_INIT;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {

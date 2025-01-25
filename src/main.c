@@ -39,6 +39,7 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
 
     camera_mouse_movement(&cam, xoffset, yoffset);
 }
+
 void processInput(GLFWwindow *window, Camera *camera) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -54,17 +55,16 @@ int main() {
 
     struct Shader block_s = shader_create("../res/shaders/block_vert.glsl",
                                    "../res/shaders/block_frag.glsl");
-    struct Texture block_t = texture_load("../res/textures/wall.jpg", JPG,
+    struct Texture block_t = texture_load("../res/textures/hisocarl.jpg", JPG,
                                           GL_TEXTURE_2D);
     struct VAO block_vao = block_create();
 
-    vec3 positions[] = {
-        {0,7,0},
-        {2,5,-15},
-        {-1.5,2.2,-2.5},
-    };
+    int len = 100;
 
     while (!glfwWindowShouldClose(win)) {
+        float currentFrame = glfwGetTime();
+        dt = currentFrame - lt;
+        lt = currentFrame;
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -88,16 +88,26 @@ int main() {
         shader_uniform_mat4(block_s, "v", &view);
         shader_uniform_mat4(block_s, "p", &projection);
 
-
         vao_bind(block_vao);
 
-        for (int i = 0; i < 3; i++) {
-            mat4 model = GLM_MAT4_IDENTITY_INIT;
-            glm_translate(model, positions[i]);
-            glm_rotate(model, glm_rad(-55.0f), (vec3){1.0f, 0.0f, 0.0f});
-            shader_uniform_mat4(block_s, "m", &model);
 
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+        for (int x = 0; x < len; x++) {
+
+            for (int y = 0; y < len; y++) {
+
+                for (int z = 0; z < len; z++) {
+
+                    mat4 model = GLM_MAT4_IDENTITY_INIT;
+
+                    glm_translate(model, (vec3){x * 0.5, y * 0.5, z * -0.5});
+                    glm_scale(model, (vec3){0.5,0.5,0.5});
+
+                    shader_uniform_mat4(block_s, "m", &model);
+
+                    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+                }
+            }
         }
 
         glfwSwapBuffers(win);
