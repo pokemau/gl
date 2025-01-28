@@ -1,4 +1,6 @@
 #include "camera.h"
+#include "gfx/window.h"
+#include <GL/gl.h>
 #include <stdio.h>
 
 
@@ -50,6 +52,16 @@ void camera_move(GLFWwindow *window, Camera *camera, float dt) {
         glm_vec3_scale((vec3){0.0f,1.0f,0.0f}, cameraSpeed, pos_diff);
         glm_vec3_sub(camera->position, pos_diff,
                      camera->position);
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+        if (win.isPolygonMode) {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            win.isPolygonMode = false;
+        } else {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            win.isPolygonMode = true;
+        }
     }
 }
 

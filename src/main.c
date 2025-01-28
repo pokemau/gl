@@ -12,7 +12,8 @@
 
 
 // GLOBAL WINDOW
-GLFWwindow *win;
+// GLFWwindow *win;
+// struct Window win;
 Camera cam;
 
 float dt = 0.0f;
@@ -48,8 +49,8 @@ void processInput(GLFWwindow *window, Camera *camera) {
 }
 
 int main() {
-    win = window_create();
-    glfwSetCursorPosCallback(win, mouse_callback);
+    window_init();
+    glfwSetCursorPosCallback(win.handle, mouse_callback);
 
     camera_init(&cam);
 
@@ -59,9 +60,9 @@ int main() {
                                           GL_TEXTURE_2D);
     struct VAO block_vao = block_create();
 
-    int len = 100;
+    int len = 20;
 
-    while (!glfwWindowShouldClose(win)) {
+    while (!glfwWindowShouldClose(win.handle)) {
         float currentFrame = glfwGetTime();
         dt = currentFrame - lt;
         lt = currentFrame;
@@ -75,7 +76,7 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, block_t.handle);
 
 
-        processInput(win, &cam);
+        processInput(win.handle, &cam);
 
         mat4 view = GLM_MAT4_IDENTITY_INIT;
         mat4 projection = GLM_MAT4_IDENTITY_INIT;
@@ -110,7 +111,7 @@ int main() {
             }
         }
 
-        glfwSwapBuffers(win);
+        glfwSwapBuffers(win.handle);
         glfwPollEvents();
     }
 

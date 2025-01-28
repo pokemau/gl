@@ -2,11 +2,15 @@
 
 #include "../util.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+struct Window win;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
+}
+
+void window_init() {
+    win.handle = window_create();
+    win.isPolygonMode = false;
 }
 
 GLFWwindow *window_create() {

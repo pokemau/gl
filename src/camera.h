@@ -1,8 +1,8 @@
 #ifndef _camera_h_
 #define _camera_h_
 
+#include "gfx/gfx.h"
 #include <cglm/cglm.h>
-#include "GLFW/glfw3.h"
 
 typedef struct {
     vec3 position;
