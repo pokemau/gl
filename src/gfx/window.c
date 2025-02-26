@@ -4,6 +4,24 @@
 
 struct Window win;
 
+static void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
+    float xpos = xposIn;
+    float ypos = yposIn;
+
+    if (win.first_mouse) {
+        win.last_x = xpos;
+        win.last_y = ypos;
+        win.first_mouse = false;
+    }
+
+    float xoffset = xpos - win.last_x;
+    float yoffset = win.last_y - ypos;
+    win.last_x = xpos;
+    win.last_y = ypos;
+
+    camera_mouse_movement(win.cam, xoffset, yoffset);
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -11,6 +29,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 void window_init() {
     win.handle = window_create();
     win.isPolygonMode = false;
+    win.first_mouse = true;
+    win.last_x = 800.0f / 2.0;
+    win.last_y = 600.0 / 2.0;
+    win.dt = 0.0f;
+    win.lt = 0.0f;
+
+    glfwSetCursorPosCallback(win.handle, mouse_callback);
 }
 
 GLFWwindow *window_create() {
@@ -41,12 +66,22 @@ GLFWwindow *window_create() {
     glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
     glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         printf("Failed to initialize GLAD\n");
         exit(1);
     }
 
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     glEnable(GL_DEPTH_TEST);
 
     return win;
 }
+void window_process_input(GLFWwindow *window, Camera *camera, float dt) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    camera_move(window, camera, dt);
+}
+

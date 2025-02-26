@@ -1,8 +1,7 @@
 #!/bin/bash
 
-cmake -S . -B build
 
-cd build/
-make
-./GLGL
+# cmake -S . -B build
+cmake --build build
+./build/GLGL
 
