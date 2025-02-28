@@ -1,9 +1,9 @@
 #ifndef _CHUNK_H_
 #define _CHUNK_H_
 
-#define CHUNK_X 16
+#define CHUNK_X 32
 #define CHUNK_Y 256
-#define CHUNK_Z 16
+#define CHUNK_Z 32
 
 #include <stdbool.h>
 #include "../gfx/vao.h"

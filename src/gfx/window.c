@@ -1,8 +1,22 @@
 #include "window.h"
 
 #include "../util.h"
+#include "GLFW/glfw3.h"
 
 struct Window win;
+
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_E && action == GLFW_PRESS) {
+        // Toggle polygon mode
+        if (win.isPolygonMode) {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            win.isPolygonMode = false;
+        } else {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            win.isPolygonMode = true;
+        }
+    }
+}
 
 static void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
     float xpos = xposIn;
@@ -36,6 +50,7 @@ void window_init() {
     win.lt = 0.0f;
 
     glfwSetCursorPosCallback(win.handle, mouse_callback);
+    glfwSetKeyCallback(win.handle, key_callback);
 }
 
 GLFWwindow *window_create() {

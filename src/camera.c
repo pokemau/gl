@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "GLFW/glfw3.h"
 #include "gfx/window.h"
 #include <GL/gl.h>
 #include <stdio.h>
@@ -54,15 +55,15 @@ void camera_move(GLFWwindow *window, Camera *camera, float dt) {
                      camera->position);
     }
 
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        if (win.isPolygonMode) {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            win.isPolygonMode = false;
-        } else {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            win.isPolygonMode = true;
-        }
-    }
+//    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_RELEASE) {
+//        if (win.isPolygonMode) {
+//            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+//            win.isPolygonMode = false;
+//        } else {
+//            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//            win.isPolygonMode = true;
+//        }
+//    }
 }
 
 void camera_mouse_movement(Camera *cam, float xOffset, float yOffset) {

@@ -26,7 +26,7 @@ add_executable(${PROJECT_NAME}
     src/gfx/vbo.c
     src/gfx/window.c
     src/block/block.c
-    src/block/chunk.c
+    src/world/chunk.c
     ${STB_SRC}
 )
 

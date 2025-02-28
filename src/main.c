@@ -10,7 +10,7 @@
 #include "cglm/mat4.h"
 #include "camera.h"
 
-#include "block/chunk.h"
+#include "world/chunk.h"
 
 
 // GLOBAL WINDOW
@@ -18,8 +18,7 @@
 // struct Window win;
 Camera cam;
 
-
-int len = 10;
+int len = 70;
 vec3 positions[] = {
     {1.0f, 0.0f, 0.0f},
 };
@@ -27,15 +26,15 @@ vec3 positions[] = {
 struct Chunk c;
 
 int main() {
+
     window_init();
     camera_init(&cam);
     win.cam = &cam;
 
-
     struct Shader block_s = shader_create("./res/shaders/block_vert.glsl",
-                                   "./res/shaders/block_frag.glsl");
-    struct Texture block_t = texture_load("./res/textures/hisocarl.jpg", JPG,
-                                          GL_TEXTURE_2D);
+                                          "./res/shaders/block_frag.glsl");
+    struct Texture block_t =
+        texture_load("./res/textures/room.jpg", JPG, GL_TEXTURE_2D);
     struct VAO block_vao = block_create();
 
     chunk_create(&c);
@@ -69,34 +68,26 @@ int main() {
         mat4 model = GLM_MAT4_IDENTITY_INIT;
         shader_uniform_mat4(block_s, "m", &model);
 
-        vao_bind(c.vao);
-        glDrawArrays(GL_TRIANGLES, 0, c.num_vertices);
+        render_chunk(&c);
 
-//        vao_bind(block_vao);
-//        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-
-
-
-
-//        for (int x = 0; x < len; x++) {
-//
-//            for (int y = 0; y < len; y++) {
-//
-//                for (int z = 0; z < len; z++) {
-//
-//                    mat4 model = GLM_MAT4_IDENTITY_INIT;
-//
-//                    glm_translate(model, (vec3){x * 0.8, y * 0.8, z * -0.8});
-//                    glm_scale(model, (vec3){0.5,0.5,0.5});
-//
-//                    shader_uniform_mat4(block_s, "m", &model);
-//
-//
-//                }
-//            }
-//        }
+        //        for (int x = 0; x < len; x++) {
+        //
+        //            for (int y = 0; y < len; y++) {
+        //
+        //                for (int z = 0; z < len; z++) {
+        //
+        //                    mat4 model = GLM_MAT4_IDENTITY_INIT;
+        //
+        //                    glm_translate(model, (vec3){x * 0.5, y * 0.5, z *
+        //                    -0.5}); glm_scale(model, (vec3){0.5,0.5,0.5});
+        //
+        //                    shader_uniform_mat4(block_s, "m", &model);
+        //
+        //
+        //                }
+        //            }
+        //        }
+        //
 
         glfwSwapBuffers(win.handle);
         glfwPollEvents();

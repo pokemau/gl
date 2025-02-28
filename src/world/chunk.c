@@ -3,9 +3,8 @@
 #include <stdlib.h>
 
 void render_chunk(struct Chunk *self) {
-    glBindVertexArray(self->vao.handle);
+    vao_bind(self->vao);
     glDrawArrays(GL_TRIANGLES, 0, self->num_vertices);
-    glBindVertexArray(0);
 }
 
 void chunk_create(struct Chunk *self) {
