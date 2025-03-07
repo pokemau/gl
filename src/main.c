@@ -12,7 +12,6 @@
 
 #include "world/chunk.h"
 
-
 // GLOBAL WINDOW
 // GLFWwindow *win;
 // struct Window win;
@@ -70,24 +69,28 @@ int main() {
 
         render_chunk(&c);
 
-        //        for (int x = 0; x < len; x++) {
+        //         vao_bind(block_vao);
+        //                 for (int x = 0; x < len; x++) {
         //
-        //            for (int y = 0; y < len; y++) {
+        //                     for (int y = 0; y < len; y++) {
         //
-        //                for (int z = 0; z < len; z++) {
+        //                         for (int z = 0; z < len; z++) {
         //
-        //                    mat4 model = GLM_MAT4_IDENTITY_INIT;
+        //                             mat4 model = GLM_MAT4_IDENTITY_INIT;
         //
-        //                    glm_translate(model, (vec3){x * 0.5, y * 0.5, z *
-        //                    -0.5}); glm_scale(model, (vec3){0.5,0.5,0.5});
+        //                             glm_translate(model, (vec3){x * 0.5, y *
+        //                             0.5, z * -0.5}); glm_scale(model,
+        //                             (vec3){0.5,0.5,0.5});
         //
-        //                    shader_uniform_mat4(block_s, "m", &model);
+        //                             shader_uniform_mat4(block_s, "m",
+        //                             &model);
+        //
+        //     glDrawArrays(GL_TRIANGLES, 0, 36);
         //
         //
-        //                }
-        //            }
-        //        }
-        //
+        //                         }
+        //                     }
+        //                 }
 
         glfwSwapBuffers(win.handle);
         glfwPollEvents();
