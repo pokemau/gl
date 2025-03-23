@@ -8,6 +8,6 @@ typedef struct block {
     vec3 pos;
 } block;
 
-struct VAO block_create();
+vao_t block_create();
 
 #endif

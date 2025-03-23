@@ -8,11 +8,11 @@ enum TextureType {
     PNG
 };
 
-struct Texture {
+typedef struct {
     GLuint handle;
-};
+} texture_t;
 
-struct Texture texture_load(const char *texture_path, enum TextureType type,
+texture_t texture_load(const char *texture_path, enum TextureType type,
                             GLenum target);
 
 #endif

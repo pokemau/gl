@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME}
     src/gfx/window.c
     src/block/block.c
     src/world/chunk.c
+    src/world/cubemap.c
     ${STB_SRC}
 )
 

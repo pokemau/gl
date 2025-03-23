@@ -66,7 +66,7 @@ GLuint make_shader_program(GLuint shader1, GLuint shader2) {
     return shaderProgram;
 }
 
-GLuint load_texture2D(const char *path, enum IMAGE_TYPE type) {
+GLuint load_texture2D(const char *path, image_type_e type) {
     GLuint ID;
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);

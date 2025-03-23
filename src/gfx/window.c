@@ -57,8 +57,6 @@ GLFWwindow *window_create() {
 
     GLFWwindow *win;
 
-    glfwInit();
-
     if (!glfwInit()) {
         fprintf(stderr, "%s",  "error initializing GLFW\n");
         exit(1);

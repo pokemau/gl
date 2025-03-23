@@ -89,9 +89,9 @@ float cubeVertices[] = {
     -0.5f,  0.5f,  0.5f,  0.0f, 0.0f  // bottom-left        
 };
 
-struct VAO block_create() {
-    struct VAO self;
-    struct VBO vbo;
+vao_t block_create() {
+    vao_t self;
+    vbo_t vbo;
 
     self = vao_create();
     vbo = vbo_create(GL_ARRAY_BUFFER, false);

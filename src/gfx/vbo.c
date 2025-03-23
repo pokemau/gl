@@ -1,7 +1,7 @@
 #include "vbo.h"
 
-struct VBO vbo_create(GLint type, bool dynamic) {
-    struct VBO self = {
+vbo_t vbo_create(GLint type, bool dynamic) {
+    vbo_t self = {
         .type = type,
         .dynamic = dynamic
     };
@@ -9,15 +9,15 @@ struct VBO vbo_create(GLint type, bool dynamic) {
     return self;
 };
 
-void vbo_bind(struct VBO self) {
+void vbo_bind(vbo_t self) {
     glBindBuffer(self.type, self.handle);
 }
 
-void vbo_destroy(struct VBO self) {
+void vbo_destroy(vbo_t self) {
     glDeleteBuffers(1, &self.handle);
 }
 
-void vbo_buffer(struct VBO self, void *data, size_t size) {
+void vbo_buffer(vbo_t self, void *data, size_t size) {
     vbo_bind(self);
     glBufferData(self.type,
                  size,

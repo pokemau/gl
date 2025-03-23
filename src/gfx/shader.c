@@ -55,8 +55,8 @@ static GLint _compile(const char *path, GLenum type) {
     return handle;
 }
 
-struct Shader shader_create(const char *vs_path, const char *fs_path) {
-    struct Shader self;
+shader_t shader_create(const char *vs_path, const char *fs_path) {
+    shader_t self;
     self.vs_handle = _compile(vs_path, GL_VERTEX_SHADER);
     self.fs_handle = _compile(fs_path, GL_FRAGMENT_SHADER);
     self.handle = glCreateProgram();
@@ -83,19 +83,19 @@ struct Shader shader_create(const char *vs_path, const char *fs_path) {
     return self;
 }
 
-void shader_destroy(struct Shader self) {
+void shader_destroy(shader_t self) {
     glDeleteProgram(self.handle);
     glDeleteShader(self.fs_handle);
     glDeleteShader(self.vs_handle);
 }
 
-void shader_bind(struct Shader self) { glUseProgram(self.handle); }
+void shader_bind(shader_t self) { glUseProgram(self.handle); }
 
-void shader_uniform_int(struct Shader self, const char *name, int v) {
+void shader_uniform_int(shader_t self, const char *name, int v) {
     glUniform1i(glGetUniformLocation(self.handle, name), v);
 }
 
-void shader_uniform_mat4(struct Shader self, const char *name, mat4 *m) {
+void shader_uniform_mat4(shader_t self, const char *name, mat4 *m) {
     glUniformMatrix4fv(glGetUniformLocation(self.handle, name), 1, GL_FALSE,
                        *(m[0]));
 }

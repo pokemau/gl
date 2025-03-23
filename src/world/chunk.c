@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void render_chunk(struct Chunk *self) {
+void chunk_render(chunk_t *self) {
     vao_bind(self->vao);
     glDrawArrays(GL_TRIANGLES, 0, self->num_vertices);
 }
 
-void chunk_create(struct Chunk *self) {
+void chunk_create(chunk_t *self) {
     for (int x = 0; x < CHUNK_X; x++) {
         for (int y = 0; y < CHUNK_Y; y++) {
             for (int z = 0; z < CHUNK_Z; z++) {
