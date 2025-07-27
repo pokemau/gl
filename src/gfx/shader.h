@@ -14,5 +14,7 @@ void shader_bind(shader_t self);
 
 void shader_uniform_int(shader_t self, const char *name, int v);
 void shader_uniform_mat4(shader_t self, const char *name, mat4 *m);
+void shader_uniform_vec3(shader_t self, const char *name, vec3 *v);
+void shader_uniform_float(shader_t self, const char *name, float f);
 
 #endif

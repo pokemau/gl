@@ -43,36 +43,54 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
 
                         vertices[index++] = x;
                         vertices[index++] = y;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
                     }
 
                     if (z == CHUNK_Z - 1) {
@@ -82,17 +100,26 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z + 1;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
                         vertices[index++] = 1;
 
                         vertices[index++] = x;
@@ -100,16 +127,25 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z + 1;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
                     }
@@ -121,36 +157,55 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+
 
                         vertices[index++] = x;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
                     }
 
                     if (x == CHUNK_X - 1) {
@@ -160,17 +215,26 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
                         vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
@@ -178,18 +242,27 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
                     }
 
                     if (y == CHUNK_Y - 1) {
@@ -199,10 +272,16 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
 
@@ -211,22 +290,34 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
                         vertices[index++] = 0;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y + 1;
                         vertices[index++] = z + 1;
+                        vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
                     }
@@ -239,17 +330,26 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z;
                         vertices[index++] = 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
                         vertices[index++] = 0;
 
                         vertices[index++] = x;
@@ -257,17 +357,26 @@ void chunk_create(chunk_t *self) {
                         vertices[index++] = z;
                         vertices[index++] = 0;
                         vertices[index++] = 1;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x + 1;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 1;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
+                        vertices[index++] = 0;
 
                         vertices[index++] = x;
                         vertices[index++] = y;
                         vertices[index++] = z + 1;
                         vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = 0;
+                        vertices[index++] = -1;
                         vertices[index++] = 0;
                     }
                 }
@@ -281,7 +390,9 @@ void chunk_create(chunk_t *self) {
     self->vbo = vbo_create(GL_ARRAY_BUFFER, false);
 
     vbo_buffer(self->vbo, vertices, sizeof(float) * index);
-    vao_attr(self->vao, self->vbo, 0, 3, GL_FLOAT, 5 * sizeof(float), 0);
-    vao_attr(self->vao, self->vbo, 1, 2, GL_FLOAT, 5 * sizeof(float),
+    vao_attr(self->vao, self->vbo, 0, 3, GL_FLOAT, 8 * sizeof(float), 0);
+    vao_attr(self->vao, self->vbo, 1, 2, GL_FLOAT, 8 * sizeof(float),
              3 * sizeof(float));
+    vao_attr(self->vao, self->vbo, 2, 3, GL_FLOAT, 8 * sizeof(float),
+             5 * sizeof(float));
 }

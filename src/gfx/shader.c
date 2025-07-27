@@ -99,3 +99,10 @@ void shader_uniform_mat4(shader_t self, const char *name, mat4 *m) {
     glUniformMatrix4fv(glGetUniformLocation(self.handle, name), 1, GL_FALSE,
                        *(m[0]));
 }
+void shader_uniform_vec3(shader_t self, const char *name, vec3 *v) {
+    glUniform3fv(glGetUniformLocation(self.handle, name), 1, v[0]);
+}
+
+void shader_uniform_float(shader_t self, const char *name, float f) {
+    glUniform1f(glGetUniformLocation(self.handle, name), f);
+}
